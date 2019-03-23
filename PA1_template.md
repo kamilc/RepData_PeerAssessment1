@@ -9,11 +9,13 @@ output:
 
 Let's first include `dplyr` and `ggplot2` (among others):
 
-```{r message = FALSE, warnings = FALSE}
+
+```r
 library(tidyverse)
 ```
 
-```{r message = FALSE, warnings = FALSE}
+
+```r
 # let's extract the dataset first:
 unzip("activity.zip")
 
@@ -24,13 +26,15 @@ dataset <- read_csv("activity.csv")
 
 Let's first subset the data to only work with complete cases:
 
-```{r}
+
+```r
 completes <- dataset[complete.cases(dataset), ]
 ```
 
 We're interested in the total number of steps taken on each day:
 
-```{r}
+
+```r
 completes_with_totals <-
   completes %>%
   group_by(date) %>%
@@ -40,12 +44,24 @@ mean_total_steps <- completes_with_totals$total %>% mean
 median_total_steps <- completes_with_totals$total %>% median
 
 print(paste("Mean total steps:", mean_total_steps))
+```
+
+```
+## [1] "Mean total steps: 10766.1886792453"
+```
+
+```r
 print(paste("Median total steps:", median_total_steps))
+```
+
+```
+## [1] "Median total steps: 10765"
 ```
 
 Now, let's plot a histogram. It's a bar plot in its essense, counting up the total number of occurances per some dimension. This is exactly what we have computed in the last step.
 
-```{r}
+
+```r
 completes_with_totals %>%
   ggplot(aes(date, total)) +
   geom_bar(stat="identity", width=0.75) +
@@ -67,7 +83,29 @@ completes_with_totals %>%
   )
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
+Let's double-check the above plot's results by looking at the mean of the total number of steps per day:
+?
+
+```r
+(completes %>% group_by(date) %>% summarize(observations=n()))$observations %>% mean()
+```
+
+```
+## [1] 288
+```
+
+Let's do the same to calculate the median:
+
+
+```r
+(completes %>% group_by(date) %>% summarize(observations=n()))$observations %>% median()
+```
+
+```
+## [1] 288
+```
 
 ## What is the average daily activity pattern?
 
