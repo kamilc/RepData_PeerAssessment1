@@ -47,30 +47,16 @@ print(paste("Mean total steps:", mean_total_steps))
 print(paste("Median total steps:", median_total_steps))
 ```
 
-Now, let's plot a histogram. It's a bar plot in its essense, counting up the total number of occurances per some dimension. This is exactly what we have computed in the last step.
+Now, let's plot a histogram:
 
 ```{r}
 completes_with_totals %>%
-  ggplot(aes(date, total)) +
-  geom_bar(stat="identity", width=0.75) +
-  geom_hline(yintercept=mean_total_steps, colour="red") +
-  annotate(
-    "text",
-    x=min(completes_with_totals$date) + 8,
-    y=mean_total_steps - 800,
-    label=paste("mean = ", mean_total_steps),
-    colour="red"
-  ) +
-  geom_hline(yintercept=median_total_steps, colour="orange") +
-  annotate(
-    "text",
-    x=max(completes_with_totals$date) - 5,
-    y=median_total_steps - 800,
-    label=paste("median = ", median_total_steps),
-    colour="orange"
-  )
+  ggplot(aes(total)) +
+  geom_histogram(bins=10) +
+  labs(title="Histogram of total number of steps per day") +
+  xlab("Number of steps") +
+  ylab("Frequency")
 ```
-
 
 
 ## What is the average daily activity pattern?
@@ -167,24 +153,11 @@ print(paste("Mean total steps for the imputed dataset:", mean_imputed_total_step
 print(paste("Median total steps for the imputed dataset:", median_imputed_total_steps))
 
 imputed_with_totals %>%
-  ggplot(aes(date, total)) +
-  geom_bar(stat="identity", width=0.75) +
-  geom_hline(yintercept=mean_imputed_total_steps, colour="red") +
-  annotate(
-    "text",
-    x=min(completes_with_totals$date) + 8,
-    y=mean_imputed_total_steps - 800,
-    label=paste("mean = ", mean_imputed_total_steps),
-    colour="red"
-  ) +
-  geom_hline(yintercept=median_imputed_total_steps, colour="orange") +
-  annotate(
-    "text",
-    x=max(completes_with_totals$date) - 5,
-    y=median_imputed_total_steps - 800,
-    label=paste("median = ", median_imputed_total_steps),
-    colour="orange"
-  )
+  ggplot(aes(total)) +
+  geom_histogram(bins=10) +
+  labs(title="Histogram of total number of steps per day") +
+  xlab("Number of steps") +
+  ylab("Frequency")
 ```
 
 What impact did the imputation have on the mean and median estimation we got previously?

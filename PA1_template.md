@@ -62,33 +62,19 @@ print(paste("Median total steps:", median_total_steps))
 ## [1] "Median total steps: 10765"
 ```
 
-Now, let's plot a histogram. It's a bar plot in its essense, counting up the total number of occurances per some dimension. This is exactly what we have computed in the last step.
+Now, let's plot a histogram:
 
 
 ```r
 completes_with_totals %>%
-  ggplot(aes(date, total)) +
-  geom_bar(stat="identity", width=0.75) +
-  geom_hline(yintercept=mean_total_steps, colour="red") +
-  annotate(
-    "text",
-    x=min(completes_with_totals$date) + 8,
-    y=mean_total_steps - 800,
-    label=paste("mean = ", mean_total_steps),
-    colour="red"
-  ) +
-  geom_hline(yintercept=median_total_steps, colour="orange") +
-  annotate(
-    "text",
-    x=max(completes_with_totals$date) - 5,
-    y=median_total_steps - 800,
-    label=paste("median = ", median_total_steps),
-    colour="orange"
-  )
+  ggplot(aes(total)) +
+  geom_histogram(bins=10) +
+  labs(title="Histogram of total number of steps per day") +
+  xlab("Number of steps") +
+  ylab("Frequency")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
-
 
 
 ## What is the average daily activity pattern?
@@ -232,24 +218,11 @@ print(paste("Median total steps for the imputed dataset:", median_imputed_total_
 
 ```r
 imputed_with_totals %>%
-  ggplot(aes(date, total)) +
-  geom_bar(stat="identity", width=0.75) +
-  geom_hline(yintercept=mean_imputed_total_steps, colour="red") +
-  annotate(
-    "text",
-    x=min(completes_with_totals$date) + 8,
-    y=mean_imputed_total_steps - 800,
-    label=paste("mean = ", mean_imputed_total_steps),
-    colour="red"
-  ) +
-  geom_hline(yintercept=median_imputed_total_steps, colour="orange") +
-  annotate(
-    "text",
-    x=max(completes_with_totals$date) - 5,
-    y=median_imputed_total_steps - 800,
-    label=paste("median = ", median_imputed_total_steps),
-    colour="orange"
-  )
+  ggplot(aes(total)) +
+  geom_histogram(bins=10) +
+  labs(title="Histogram of total number of steps per day") +
+  xlab("Number of steps") +
+  ylab("Frequency")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
